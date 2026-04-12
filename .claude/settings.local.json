@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://localhost:8000/health 2>&1)",
+      "Bash(python --version && pip --version)",
+      "Bash(pip install:*)",
+      "Bash(curl -s \"http://localhost:8000/extract?url=https://www.instagram.com/reel/C5R0H3LyR0P/\" 2>&1)",
+      "Bash(cd \"E:\\\\Personal\\\\projects\\\\practise workship\\\\app_build\" && npm run dev 2>&1 | head -50)",
+      "Bash(cd \"E:/Personal/projects/practise workship/app_build\" && npm run build 2>&1)"
+    ]
+  }
+}
