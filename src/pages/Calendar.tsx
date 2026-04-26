@@ -142,14 +142,19 @@ export default function CalendarPage() {
                 {selectedDayTasks.map(task => (
                   <div
                     key={task.id}
-                    className={`p-3 rounded-lg bg-surface-container-high border-l-4 ${
+                    className={`p-3 rounded-lg bg-surface-container-high border-l-4 flex items-center gap-3 ${
                       task.priority === 'high' ? 'border-l-[#ff6e84]' :
                       task.priority === 'medium' ? 'border-l-[#ffc842]' : 'border-l-[#6bff8f]'
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium text-on-surface text-sm">{task.title}</span>
-                      <span className="text-secondary text-xs font-bold">+{task.tokens}</span>
+                    {task.thumbnail && (
+                      <div className="w-8 h-8 rounded-md overflow-hidden flex-shrink-0 border border-outline-variant/10">
+                        <img src={task.thumbnail} alt="Thumbnail" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      </div>
+                    )}
+                    <div className="flex-1 flex items-center justify-between min-w-0">
+                      <span className="font-medium text-on-surface text-sm truncate">{task.title}</span>
+                      <span className="text-secondary text-xs font-bold whitespace-nowrap ml-2">+{task.tokens}</span>
                     </div>
                   </div>
                 ))}
@@ -173,8 +178,12 @@ export default function CalendarPage() {
               {groupedTasks.overdue.map((task) => (
                 <div key={task.id} className="bg-surface-container-high p-4 rounded-lg border border-[rgba(255,110,132,0.3)] animate-urgent-pulse">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-[rgba(255,110,132,0.1)] flex items-center justify-center flex-shrink-0">
-                      <span className="material-symbols-outlined text-[#ff6e84]">warning</span>
+                    <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0 border border-outline-variant/10">
+                      {task.thumbnail ? (
+                        <img src={task.thumbnail} alt="Thumbnail" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      ) : (
+                        <span className="material-symbols-outlined text-[#ff6e84]">warning</span>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-headline font-bold text-on-surface leading-tight">{task.title}</h4>
@@ -200,8 +209,12 @@ export default function CalendarPage() {
               {groupedTasks.today.map((task) => (
                 <div key={task.id} className="bg-surface-container-high p-4 rounded-lg border border-primary/20">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <span className="material-symbols-outlined text-primary" style={{fontVariationSettings: "'FILL' 1"}}>bolt</span>
+                    <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0 border border-outline-variant/10">
+                      {task.thumbnail ? (
+                        <img src={task.thumbnail} alt="Thumbnail" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      ) : (
+                        <span className="material-symbols-outlined text-primary" style={{fontVariationSettings: "'FILL' 1"}}>bolt</span>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-headline font-bold text-on-surface leading-tight">{task.title}</h4>
@@ -227,8 +240,12 @@ export default function CalendarPage() {
               {groupedTasks.thisWeek.map((task) => (
                 <div key={task.id} className="bg-surface-container-high p-4 rounded-lg border border-[rgba(255,200,66,0.2)]">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-[rgba(255,200,66,0.1)] flex items-center justify-center flex-shrink-0">
-                      <span className="material-symbols-outlined text-[#ffc842]">schedule</span>
+                    <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0 border border-outline-variant/10">
+                      {task.thumbnail ? (
+                        <img src={task.thumbnail} alt="Thumbnail" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      ) : (
+                        <span className="material-symbols-outlined text-[#ffc842]">schedule</span>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-headline font-bold text-on-surface leading-tight">{task.title}</h4>
@@ -254,8 +271,12 @@ export default function CalendarPage() {
               {groupedTasks.later.map((task) => (
                 <div key={task.id} className="bg-surface-container-high p-4 rounded-lg border border-secondary/10">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
-                      <span className="material-symbols-outlined text-secondary">event</span>
+                    <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0 border border-outline-variant/10">
+                      {task.thumbnail ? (
+                        <img src={task.thumbnail} alt="Thumbnail" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      ) : (
+                        <span className="material-symbols-outlined text-secondary">event</span>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-headline font-bold text-on-surface leading-tight">{task.title}</h4>

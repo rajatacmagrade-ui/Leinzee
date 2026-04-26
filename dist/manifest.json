@@ -1,0 +1,48 @@
+{
+  "name": "Leinzeee",
+  "short_name": "Leinzeee",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060e20",
+  "theme_color": "#060e20",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3669/3669986.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3669/3669986.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Convert Reel",
+      "short_name": "Convert",
+      "description": "Quickly add a new reel",
+      "url": "/add-reel",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/3669/3669986.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Today's Tasks",
+      "short_name": "Tasks",
+      "description": "View your daily checklist",
+      "url": "/tasks",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/3669/3669986.png", "sizes": "192x192" }]
+    }
+  ],
+  "share_target": {
+    "action": "/add-reel",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

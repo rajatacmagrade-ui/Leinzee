@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"http://localhost:8000/health\" 2>/dev/null || echo \"Server not responding\")"
+    ]
+  }
+}

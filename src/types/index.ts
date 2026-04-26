@@ -10,6 +10,9 @@ export interface Task {
   caption?: string;
   hashtags?: string[];
   mentions?: string[];
+  platform?: string;
+  thumbnail?: string;
+  sourceUrl?: string;
 }
 
 export interface UserStats {
@@ -18,6 +21,8 @@ export interface UserStats {
   weeklyTotalTasks: number;
   weeklyTokenEarnings: number;
   lifetimeCompletedTasks: number;
+  userName?: string;
+  userGender?: string;
 }
 
 export interface Notification {

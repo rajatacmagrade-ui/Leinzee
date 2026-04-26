@@ -11,11 +11,15 @@ interface AppState {
   longestStreak: number;
   lastCompletionDate: string | null;
   weekKey: string;
+  instagramUser: string | null;
+  setInstagramUser: (username: string | null) => void;
+  updateProfile: (data: { name: string; gender: string }) => void;
   addTask: (task: Task) => void;
   markTaskComplete: (taskId: string) => void;
   redeemItem: (cost: number) => boolean;
   markNotificationRead: (id: string) => void;
   markAllNotificationsRead: () => void;
+  loadFromDB: () => Promise<void>;
   getScore: () => number;
   getTier: () => string;
   getWeeklyData: () => { day: string; count: number }[];
@@ -37,6 +41,13 @@ const detectPriority = (deadline: string): 'high' | 'medium' | 'low' => {
   return 'low';
 };
 
+const safeId = () => {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return Math.random().toString(36).substring(2) + Date.now().toString(36);
+};
+
 export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
@@ -52,12 +63,23 @@ export const useStore = create<AppState>()(
       currentStreak: 0,
       longestStreak: 0,
       lastCompletionDate: null,
+      instagramUser: null,
       weekKey: getCurrentWeekKey(),
+
+      setInstagramUser: (username) => set({ instagramUser: username }),
+
+      updateProfile: (data) => set((state) => ({
+        stats: {
+          ...state.stats,
+          userName: data.name,
+          userGender: data.gender,
+        }
+      })),
 
       addTask: (task) => set((state) => {
         const taskWithPriority = {
           ...task,
-          priority: detectPriority(task.deadline),
+          priority: task.priority || detectPriority(task.deadline),
         };
         return {
           tasks: [...state.tasks, taskWithPriority],
@@ -68,7 +90,7 @@ export const useStore = create<AppState>()(
           notifications: [
             ...state.notifications,
             {
-              id: crypto.randomUUID(),
+              id: safeId(),
               type: 'pending' as const,
               title: 'Task Added',
               message: `New task tracking: ${task.title}`,
@@ -98,23 +120,24 @@ export const useStore = create<AppState>()(
         const updatedTasks = state.tasks.map((t) =>
           t.id === taskId ? { ...t, status: 'completed' as const, completedAt: new Date().toISOString() } : t
         );
+        const newStats = {
+          ...state.stats,
+          totalTokens: state.stats.totalTokens + task.tokens,
+          weeklyCompletedTasks: state.stats.weeklyCompletedTasks + 1,
+          weeklyTokenEarnings: state.stats.weeklyTokenEarnings + task.tokens,
+          lifetimeCompletedTasks: state.stats.lifetimeCompletedTasks + 1,
+        };
 
         return {
           tasks: updatedTasks,
-          stats: {
-            ...state.stats,
-            totalTokens: state.stats.totalTokens + task.tokens,
-            weeklyCompletedTasks: state.stats.weeklyCompletedTasks + 1,
-            weeklyTokenEarnings: state.stats.weeklyTokenEarnings + task.tokens,
-            lifetimeCompletedTasks: state.stats.lifetimeCompletedTasks + 1,
-          },
+          stats: newStats,
           currentStreak: newStreak,
           longestStreak: Math.max(state.longestStreak, newStreak),
           lastCompletionDate: today,
           notifications: [
             ...state.notifications,
             {
-              id: crypto.randomUUID(),
+              id: safeId(),
               type: 'reward' as const,
               title: 'Tokens Rewarded',
               message: `Earned ${task.tokens} tokens for completing ${task.title}!`,
@@ -128,15 +151,14 @@ export const useStore = create<AppState>()(
       redeemItem: (cost) => {
         const state = get();
         if (state.stats.totalTokens >= cost) {
-          set({
-            stats: {
-              ...state.stats,
-              totalTokens: state.stats.totalTokens - cost,
-            },
-          });
+          set({ stats: { ...state.stats, totalTokens: state.stats.totalTokens - cost } });
           return true;
         }
         return false;
+      },
+
+      loadFromDB: async () => {
+        // localStorage is the primary store; backend sync removed
       },
 
       markNotificationRead: (id) =>

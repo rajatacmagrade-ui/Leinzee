@@ -180,25 +180,7 @@ export default function Notifications() {
         {renderGroup('Older', grouped.older, '#a3aac4')}
       </div>
 
-      {/* Summary Cards */}
-      {notifications.length > 0 && (
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="glass-card p-8 rounded-lg relative overflow-hidden group border border-outline-variant/10">
-            <div className="z-10 relative">
-              <h4 className="font-headline font-bold text-xl mb-2 text-secondary">Summary</h4>
-              <p className="text-on-surface-variant text-sm">Complete your actions to maintain your streak.</p>
-            </div>
-            <div className="absolute -bottom-4 -right-4 text-9xl text-white opacity-5 pointer-events-none material-symbols-outlined">bolt</div>
-          </div>
-          <div className="bg-primary/10 p-8 rounded-lg border border-primary/20 flex flex-col justify-between">
-            <div>
-              <h4 className="font-headline font-bold text-xl mb-2 text-primary">Preferences</h4>
-              <p className="text-on-surface-variant text-sm">Customize how and when you receive action alerts.</p>
-            </div>
-            <button className="mt-4 self-start px-6 py-2 bg-primary text-on-primary rounded-full font-bold text-xs uppercase tracking-widest active:scale-95 transition-transform">Manage Settings</button>
-          </div>
-        </div>
-      )}
+
     </>
   );
 }

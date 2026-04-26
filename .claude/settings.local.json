@@ -6,7 +6,12 @@
       "Bash(pip install:*)",
       "Bash(curl -s \"http://localhost:8000/extract?url=https://www.instagram.com/reel/C5R0H3LyR0P/\" 2>&1)",
       "Bash(cd \"E:\\\\Personal\\\\projects\\\\practise workship\\\\app_build\" && npm run dev 2>&1 | head -50)",
-      "Bash(cd \"E:/Personal/projects/practise workship/app_build\" && npm run build 2>&1)"
+      "Bash(cd \"E:/Personal/projects/practise workship/app_build\" && npm run build 2>&1)",
+      "Bash(cd \"E:\\\\Personal\\\\projects\\\\practise workship\\\\app_build\\\\backend\" && python -c \"\nimport sqlite3\nconn = sqlite3.connect\\('leinzeee.db'\\)\ncursor = conn.cursor\\(\\)\ncursor.execute\\('SELECT * FROM tasks'\\)\nrows = cursor.fetchall\\(\\)\nprint\\('Tasks in DB:', len\\(rows\\)\\)\nfor row in rows:\n    print\\(row\\)\nconn.close\\(\\)\n\")",
+      "Bash(cd \"E:\\\\Personal\\\\projects\\\\practise workship\\\\app_build\\\\backend\" && python -c \"\nimport sqlite3\nconn = sqlite3.connect\\('leinzeee.db'\\)\ncursor = conn.cursor\\(\\)\ncursor.execute\\('SELECT * FROM stats'\\)\nrows = cursor.fetchall\\(\\)\nprint\\('Stats in DB:'\\)\nfor row in rows:\n    print\\(row\\)\nconn.close\\(\\)\n\")",
+      "Bash(cd \"E:\\\\Personal\\\\projects\\\\practise workship\\\\app_build\\\\backend\" && python -c \"\nimport instaloader\nprint\\(instaloader.__version__\\)\nhelp\\(instaloader.Instaloader.load_session_from_file\\)\n\" 2>&1 | head -30)",
+      "Bash(curl -s \"http://localhost:8000/health\" 2>&1 || echo \"Backend not running\")",
+      "Bash(curl -s \"https://www.instagram.com/p/DKW48FXkmRT/media/?size=l\" -I 2>&1 | head -10)"
     ]
   }
 }

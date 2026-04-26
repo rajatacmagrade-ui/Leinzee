@@ -52,5 +52,6 @@ export const mockExtract = (_url: string) => {
     caption: randomCaption,
     hashtags,
     mentions,
+    thumbnail: `https://images.unsplash.com/photo-1616423640778-28d1b53229bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80`,
   };
 };
